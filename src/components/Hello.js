@@ -3,7 +3,7 @@ import helloServices from "../services/helloServices";
 
 const Hello = () =>{
 
-    const[hello, setHello] = useState("sensya lods down server, chat para gumana")
+    const[hello, setHello] = useState("sensya lods down server")
 
     useEffect(()=>{
         helloServices.getHello()
