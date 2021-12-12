@@ -9,6 +9,7 @@ const AddEmployee = () => {
     const [department, setDepartment] = useState("");
     const navigate = useNavigate();
     const { employeeID } = useParams();
+    const[error, setError] = useState("");
 
     useEffect(
         () => {
@@ -32,41 +33,49 @@ const AddEmployee = () => {
         , [])
 
     const saveEmployee = (e) => {
-        
+
         e.preventDefault();
 
-        if (employeeID) {
-            const employee = { employeeID, name, location, department };
-            employeeService.putEmployee(employee)
-                .then(
-                    response => {
-                        console.log("updated employee", response.data)
-                        navigate("/employees");
-                    }
-                )
+        if (name && location && department) {
+            setError('');
+            if (employeeID) {
+                const employee = { employeeID, name, location, department };
+                employeeService.putEmployee(employee)
+                    .then(
+                        response => {
+                            console.log("updated employee", response.data)
+                            navigate("/employees");
+                        }
+                    )
 
-                .catch(
-                    error => {
-                        console.error("something went wrong")
-                    }
-                )
-        }
-        else {
-            const employee = { name, location, department };
-            employeeService.postEmployee(employee)
-                .then(
-                    response => {
-                        console.log("added new employee", response.data)
-                        navigate("/employees");
-                    }
-                )
+                    .catch(
+                        error => {
+                            console.error("something went wrong")
+                        }
+                    )
+            }
+            else {
+                const employee = { name, location, department };
+                employeeService.postEmployee(employee)
+                    .then(
+                        response => {
+                            console.log("added new employee", response.data)
+                            navigate("/employees");
+                        }
+                    )
 
-                .catch(
-                    error => {
-                        console.error("something went wrong")
-                    }
-                )
+                    .catch(
+                        error => {
+                            console.error("something went wrong")
+                        }
+                    )
+            }
         }
+        else{
+            console.error('something missing');
+            setError('All fields are required');
+        }
+
     }
 
     return (
@@ -119,6 +128,7 @@ const AddEmployee = () => {
                     />
                 </div>
                 <button type="submit" className="btn btn-primary" onClick={(e) => saveEmployee(e)}>Save</button>
+                <p id="error" className="text-danger">{error && <p className="error">{error}</p>}</p>
             </form>
         </div>
     )
