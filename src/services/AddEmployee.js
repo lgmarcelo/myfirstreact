@@ -9,7 +9,6 @@ const AddEmployee = () => {
     const [department, setDepartment] = useState("");
     const navigate = useNavigate();
     const { employeeID } = useParams();
-    const[error, setError] = useState("");
 
     useEffect(
         () => {
@@ -36,8 +35,6 @@ const AddEmployee = () => {
 
         e.preventDefault();
 
-        if (name && location && department) {
-            setError('');
             if (employeeID) {
                 const employee = { employeeID, name, location, department };
                 employeeService.putEmployee(employee)
@@ -71,12 +68,7 @@ const AddEmployee = () => {
                     )
             }
         }
-        else{
-            console.error('something missing');
-            setError('All fields are required');
-        }
 
-    }
 
     return (
         <div className="container">
@@ -128,7 +120,6 @@ const AddEmployee = () => {
                     />
                 </div>
                 <button type="submit" className="btn btn-primary" onClick={(e) => saveEmployee(e)}>Save</button>
-                <p id="error" className="text-danger">{error && <p className="error">{error}</p>}</p>
             </form>
         </div>
     )
