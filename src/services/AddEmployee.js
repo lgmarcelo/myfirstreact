@@ -41,7 +41,7 @@ const AddEmployee = () => {
                     .then(
                         response => {
                             console.log("updated employee", response.data)
-                            navigate("/employees");
+                            navigate("/myfirstreact/employees");
                         }
                     )
 
@@ -57,7 +57,7 @@ const AddEmployee = () => {
                     .then(
                         response => {
                             console.log("added new employee", response.data)
-                            navigate("/employees");
+                            navigate("/myfirstreact/employees");
                         }
                     )
 
